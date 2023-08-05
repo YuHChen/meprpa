@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="/meprpa/favicon.png" />
-  <meta name="viewport" content="width=device-width" />
-  
-		<link rel="modulepreload" href="/meprpa/_app/immutable/entry/start.8596279a.js">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/meprpa/favicon.png" />
+    <meta name="viewport" content="width=device-width" />
+    
+		<link rel="modulepreload" href="/meprpa/_app/immutable/entry/start.fff516a1.js">
 		<link rel="modulepreload" href="/meprpa/_app/immutable/chunks/scheduler.e108d1fd.js">
-		<link rel="modulepreload" href="/meprpa/_app/immutable/chunks/singletons.fbaef48d.js">
-		<link rel="modulepreload" href="/meprpa/_app/immutable/entry/app.1e0aca94.js">
+		<link rel="modulepreload" href="/meprpa/_app/immutable/chunks/singletons.fbfe5def.js">
+		<link rel="modulepreload" href="/meprpa/_app/immutable/entry/app.891bb934.js">
 		<link rel="modulepreload" href="/meprpa/_app/immutable/chunks/index.0719bd3d.js">
-</head>
-<body data-sveltekit-preload-data="hover">
-  <div style="display: contents">
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">
 			<script>
 				{
-					__sveltekit_1l3fxh7 = {
+					__sveltekit_l6fpg4 = {
 						assets: "/meprpa",
 						base: "/meprpa",
 						env: {}
@@ -24,8 +24,8 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/meprpa/_app/immutable/entry/start.8596279a.js"),
-						import("/meprpa/_app/immutable/entry/app.1e0aca94.js")
+						import("/meprpa/_app/immutable/entry/start.fff516a1.js"),
+						import("/meprpa/_app/immutable/entry/app.891bb934.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});
@@ -33,81 +33,75 @@
 			</script>
 		</div>
 
-  <p>
-    <strong>
-      This example is only going to work if it's on the internet or on a local server!
-    </strong>
-    To run a local server, run "terminal" or "command prompt" and run the command
-    <code>
-      python -m http.server
-    </code>
-    or
-    <code>
-      python -m SimpleHTTPServer
-    </code>
-    (whichever one works, really, and you might even need to
-    <a href="http://littlecolumns.com/tools/python-wrangler/">install Python</a>).
-    Then visit <a href="http://localhost:8000/">http://localhost:8000</a> and you'll be all set.
-  </p>
+    <p>
+      <strong>
+        This example is only going to work if it's on the internet or on a local server!
+      </strong>
+      To run a local server, run "terminal" or "command prompt" and run the command
+      <code> python -m http.server </code>
+      or
+      <code> python -m SimpleHTTPServer </code>
+      (whichever one works, really, and you might even need to
+      <a href="http://littlecolumns.com/tools/python-wrangler/">install Python</a>). Then visit
+      <a href="http://localhost:8000/">http://localhost:8000</a> and you'll be all set.
+    </p>
 
-  <form id="spreadsheetIdForm">
-    <label for="spreadsheetId">Spreadsheet ID:</label>
-    <input type="text" id="spreadsheetId" name="spreadsheetId">
-    <input type="submit" value="Fetch Spreadsheet">
-  </form>
+    <form id="spreadsheetIdForm">
+      <label for="spreadsheetId">Spreadsheet ID:</label>
+      <input type="text" id="spreadsheetId" name="spreadsheetId" />
+      <input type="submit" value="Fetch Spreadsheet" />
+    </form>
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"></script>
-  <script type="text/javascript">
-    function fetchSpreadsheet(form) {
-      const formData = new FormData(form);
-      const spreadsheetId = formData.get("spreadsheetId");
-      const url = `https://docs.google.com/spreadsheets/d/e/${spreadsheetId}/pub?output=csv`;
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.1.0/papaparse.min.js"
+    ></script>
+    <script type="text/javascript">
+      function fetchSpreadsheet(form) {
+        const formData = new FormData(form);
+        const spreadsheetId = formData.get('spreadsheetId');
+        const url = `https://docs.google.com/spreadsheets/d/e/${spreadsheetId}/pub?output=csv`;
 
-      document.getElementById("spreadsheetLocation").innerHTML =
-        `The published spreadsheet is located at <a target='_new' href='${url}'> ${url} </a>`;
+        document.getElementById(
+          'spreadsheetLocation'
+        ).innerHTML = `The published spreadsheet is located at <a target='_new' href='${url}'> ${url} </a>`;
 
-      Papa.parse(url, {
-        download: true,
-        header: true,
-        complete: showInfo
-      });
-    }
+        Papa.parse(url, {
+          download: true,
+          header: true,
+          complete: showInfo,
+        });
+      }
 
-    function showInfo(results) {
-      const data = results.data;
-      document.getElementById("spreadsheet").innerHTML = data.map(recipeToHtml).join("\n");
-      console.log(data);
-    }
+      function showInfo(results) {
+        const data = results.data;
+        document.getElementById('spreadsheet').innerHTML = data.map(recipeToHtml).join('\n');
+        console.log(data);
+      }
 
-    function recipeToHtml(recipe) {
-      return [
-        `<h3>${recipe.name}</h3>`,
-        ingredientsToHtml(recipe.ingredients),
-      ].join("\n");
-    }
+      function recipeToHtml(recipe) {
+        return [`<h3>${recipe.name}</h3>`, ingredientsToHtml(recipe.ingredients)].join('\n');
+      }
 
-    function ingredientsToHtml(ingredients) {
-      console.log(JSON.parse(ingredients));
-      const html = [
-        "<ol>",
-        ...(JSON.parse(ingredients).map(
-          i => `<li>${i.amount} ${i.unit} ${i.name}</li>`
-        )),
-        "</ol>",
-      ];
-      console.log(html);
-      return html.join("\n");
-    }
+      function ingredientsToHtml(ingredients) {
+        console.log(JSON.parse(ingredients));
+        const html = [
+          '<ol>',
+          ...JSON.parse(ingredients).map((i) => `<li>${i.amount} ${i.unit} ${i.name}</li>`),
+          '</ol>',
+        ];
+        console.log(html);
+        return html.join('\n');
+      }
 
-    document.getElementById("spreadsheetIdForm")
-      .addEventListener("submit", function (e) {
+      document.getElementById('spreadsheetIdForm').addEventListener('submit', function (e) {
         e.preventDefault();
         fetchSpreadsheet(e.target);
         return false;
       });
-  </script>
+    </script>
 
-  <p id="spreadsheetLocation"></p>
-  <div id="spreadsheet"></div>
-</body>
+    <p id="spreadsheetLocation"></p>
+    <div id="spreadsheet"></div>
+  </body>
 </html>
