@@ -2,7 +2,7 @@ name: CI CD
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       # trigger on .github since workflows changed
       - '.github/**'
@@ -19,7 +19,7 @@ on:
       - vite.config.ts
   pull_request:
     branches:
-      - master
+      - main
     paths:
       # trigger on .github since workflows changed
       - '.github/**'
