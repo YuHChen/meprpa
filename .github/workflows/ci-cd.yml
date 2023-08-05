@@ -1,0 +1,81 @@
+name: CI CD
+on:
+  push:
+    branches:
+      - master
+    paths:
+      # trigger on .github since workflows changed
+      - '.github/**'
+      - 'static/**'
+      - 'src/**'
+      - 'tests/**'
+      # trigger on package*.json since dependencies changed
+      - package.json
+      - package-lock.json
+      # trigger on config changes
+      - playwright.config.ts
+      - svelte.config.js
+      - tsconfig.json
+      - vite.config.ts
+  pull_request:
+    branches:
+      - master
+    paths:
+      # trigger on .github since workflows changed
+      - '.github/**'
+      - 'static/**'
+      - 'src/**'
+      - 'tests/**'
+      # trigger on package*.json since dependencies changed
+      - package.json
+      - package-lock.json
+      # trigger on config changes
+      - playwright.config.ts
+      - svelte.config.js
+      - tsconfig.json
+      - vite.config.ts
+
+jobs:
+  continuous_integration:
+    name: Continuous integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3.5.3
+      - uses: actions/setup-node@v3.7.0
+        with:
+          node-version: 18
+          check-latest: true
+      - name: Install dependencies
+        run: npm install
+      - name: Check style rules
+        run: npm run lint
+      - name: Run unit tests and generate coverage report
+        run: npm run test:coverage
+      - name: Run integration tests
+        run: npm run test:integration
+    timeout-minutes: 15
+  continuous_deployment:
+    name: Continuous deployment
+    needs: [continuous_integration]
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - uses: actions/checkout@v3.5.3
+      - uses: actions/setup-node@v3.7.0
+        with:
+          node-version: 18
+          check-latest: true
+      - name: Install dependencies
+        run: npm install
+      - name: Configure git
+        env:
+          USER_NAME: github-actions
+          USER_EMAIL: github-actions@users.noreply.github.com
+          ORIGIN: https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+        run: |
+          git config user.name $USER_NAME
+          git config user.email $USER_EMAIL
+          git remote set-url origin $ORIGIN
+      - name: Deploy to GitHub Pages
+        run: npm run deploy
+    timeout-minutes: 30
