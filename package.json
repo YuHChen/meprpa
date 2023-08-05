@@ -11,8 +11,10 @@
     "test": "npm run test:integration && npm run test:unit",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "prettier --plugin-search-dir . --check . && eslint .",
-    "format": "prettier --plugin-search-dir . --write .",
+    "lint": "npm run lint:prettier && npm run lint:eslint",
+    "lint:prettier": "prettier --plugin-search-dir . --check \"{src,tests}/**/*.{ts,svelte,html}\"",
+    "lint:eslint": "eslint --color \"{src,tests}/**/*.{ts,svelte,html}\"",
+    "format": "prettier --plugin-search-dir . --write \"{src,tests}/**/*.{ts,svelte,html}\"",
     "test:integration": "playwright test",
     "test:unit": "vitest",
     "test:coverage": "vitest run --coverage"
