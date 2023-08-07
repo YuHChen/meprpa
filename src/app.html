@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -39,7 +39,7 @@
         const url = `https://docs.google.com/spreadsheets/d/e/${spreadsheetId}/pub?output=csv`;
 
         document.getElementById(
-          'spreadsheetLocation'
+          'spreadsheetLocation',
         ).innerHTML = `The published spreadsheet is located at <a target='_new' href='${url}'> ${url} </a>`;
 
         Papa.parse(url, {
