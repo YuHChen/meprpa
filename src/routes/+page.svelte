@@ -59,7 +59,7 @@
   <input type="submit" value="Fetch Spreadsheet" disabled={spreadsheetId === ''} />
 </form>
 
-{#if spreadsheetId === ''}
+{#if recipes === undefined}
   <p>
     You can find the spreadsheet ID in a Google Sheets URL:
     <code>https://docs.google.com/spreadsheets/d/<strong>spreadsheetId</strong>/edit#gid=0</code>.
@@ -71,9 +71,7 @@
     The published spreadsheet is located at
     <a target="_new" href={url}> {url} </a>
   </p>
-{/if}
 
-{#if recipes}
   <div>
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html recipes}
