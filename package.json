@@ -17,7 +17,7 @@
     "lint:eslint": "eslint --color \"{src,tests}/**/*.{ts,svelte}\"",
     "format": "prettier --plugin prettier-plugin-svelte --write \"{src,tests}/**/*.{ts,svelte,html}\"",
     "test:integration": "playwright test",
-    "test:unit": "vitest",
+    "test:unit": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {

@@ -3,8 +3,16 @@
   import RecipeBooks from './RecipeBooks.svelte';
 </script>
 
-<h1>Manage Recipe Books</h1>
+<div>
+  <h1>Manage Recipe Books</h1>
 
-<AddRecipeBook />
+  <AddRecipeBook />
 
-<RecipeBooks />
+  <RecipeBooks />
+</div>
+
+<style>
+  div {
+    margin: auto 1rem;
+  }
+</style>
