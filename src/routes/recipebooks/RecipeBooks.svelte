@@ -1,7 +1,12 @@
 <script lang="ts">
+  import { getAsString } from '$lib/formData';
   import { recipeBooks } from './recipesbooks';
 
-  function removeRecipeBook() {}
+  function removeRecipeBook(form: SubmitEvent) {
+    const formData = new FormData(form.target as HTMLFormElement);
+    const id = getAsString(formData, 'id');
+    recipeBooks.remove(id);
+  }
 </script>
 
 <div>

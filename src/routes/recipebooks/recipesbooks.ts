@@ -13,7 +13,23 @@ export const recipeBooks = (() => {
 
   return {
     subscribe,
-    push: (recipeBook: RecipeBook) => update((recipeBooks) => [...recipeBooks, recipeBook]),
+    push: (recipeBook: RecipeBook) =>
+      update((recipeBooks) => {
+        const { id } = recipeBook;
+        if (recipeBooks.some((r) => r.id === id)) {
+          throw new Error(`Recipe book with id \`${id}\` already exists.`);
+        } else {
+          return [...recipeBooks, recipeBook];
+        }
+      }),
+    remove: (id: string) =>
+      update((recipeBooks) => {
+        const index = recipeBooks.findIndex((r) => r.id === id);
+        if (index > -1) {
+          recipeBooks.splice(index, 1);
+        }
+        return recipeBooks;
+      }),
     reset: () => set([]),
   };
 })();

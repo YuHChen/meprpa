@@ -1,16 +1,11 @@
 <script lang="ts">
+  import { getAsString } from '$lib/formData';
   import { recipeBooks, type RecipeBook } from './recipesbooks';
 
-  function getAsString(data: FormData, key: string): string {
-    let val = data.get(key)!;
-    if (typeof val === 'string') {
-      return val;
-    } else {
-      throw Error(`Expected string for \`${key}\` in form data.`);
-    }
-  }
+  let error: string | undefined;
 
   function addRecipeBook(form: SubmitEvent) {
+    error = undefined;
     const formData = new FormData(form.target as HTMLFormElement);
     const id = getAsString(formData, 'id');
     const recipeBook: RecipeBook = {
@@ -18,7 +13,13 @@
       name: getAsString(formData, 'name') || id,
     };
 
-    recipeBooks.push(recipeBook);
+    try {
+      recipeBooks.push(recipeBook);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        error = e.message;
+      }
+    }
   }
 </script>
 
@@ -37,6 +38,9 @@
 
     <button>Add recipe book</button>
   </form>
+  {#if error}
+    <p class="error">{error}</p>
+  {/if}
 </div>
 
 <style>
@@ -77,5 +81,9 @@
 
   button:hover {
     opacity: 1;
+  }
+
+  .error {
+    color: rgb(180, 0, 0);
   }
 </style>
