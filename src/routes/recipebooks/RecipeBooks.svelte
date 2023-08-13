@@ -19,7 +19,8 @@
       <li>
         <div>
           <span>{recipeBook.name}</span>
-          <form action="/recipebook/{recipeBook.id}">
+          <form action="/recipebook">
+            <input type="hidden" name="id" value={recipeBook.id} />
             <button class="edit" aria-label="Edit recipe book" />
           </form>
           <form on:submit|preventDefault={removeRecipeBook}>

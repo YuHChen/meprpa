@@ -4,7 +4,7 @@
 
 <div>
   <h1>Edit recipe book</h1>
-  <p>Spreadsheet ID: {$page.params.id}</p>
+  <p>Spreadsheet ID: {$page.url.searchParams.get('id')}</p>
 </div>
 
 <style>
