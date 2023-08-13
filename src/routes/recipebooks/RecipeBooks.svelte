@@ -17,11 +17,16 @@
   <ul>
     {#each $recipeBooks as recipeBook (recipeBook.id)}
       <li>
-        <form on:submit|preventDefault={removeRecipeBook}>
-          <input type="hidden" name="id" value={recipeBook.id} />
+        <div>
           <span>{recipeBook.name}</span>
-          <button aria-label="Remove recipe book" />
-        </form>
+          <form action="/recipebook/{recipeBook.id}">
+            <button class="edit" aria-label="Edit recipe book" />
+          </form>
+          <form on:submit|preventDefault={removeRecipeBook}>
+            <input type="hidden" name="id" value={recipeBook.id} />
+            <button class="remove" aria-label="Remove recipe book" />
+          </form>
+        </div>
       </li>
     {/each}
   </ul>
@@ -49,12 +54,12 @@
     background: hsl(0, 10%, 90%);
   }
 
-  ul:has(li):has(form) {
+  ul:has(li):has(div) {
     list-style: none;
     padding: 0;
   }
 
-  ul li form {
+  ul li div {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -71,13 +76,12 @@
       opacity 0.2s;
   }
 
-  form span {
+  div span {
     flex: 1;
   }
 
   form button {
     border: none;
-    background: url(./remove.svg) no-repeat 50% 50%;
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -87,5 +91,15 @@
     height: 3em;
     margin: -0.5em -0.5em -0.5em 0;
     aspect-ratio: 1;
+  }
+
+  form button.edit {
+    background: url(./edit.svg) no-repeat 50% 50%;
+    background-size: 1rem 1rem;
+  }
+
+  form button.remove {
+    background: url(./remove.svg) no-repeat 50% 50%;
+    background-size: 1rem 1rem;
   }
 </style>
