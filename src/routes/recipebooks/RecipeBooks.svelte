@@ -80,6 +80,7 @@
 
   div span {
     flex: 1;
+    word-break: break-all;
   }
 
   form button {
