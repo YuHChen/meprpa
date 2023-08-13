@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   import { getAsString } from '$lib/formData';
   import { recipeBooks } from './recipesbooks';
 
@@ -19,7 +20,7 @@
       <li>
         <div>
           <span>{recipeBook.name}</span>
-          <form action="/recipebook">
+          <form action="{base}/recipebook">
             <input type="hidden" name="id" value={recipeBook.id} />
             <button class="edit" aria-label="Edit recipe book" />
           </form>
