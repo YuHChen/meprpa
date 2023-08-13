@@ -1,4 +1,4 @@
-import { localStorage } from '$lib/localStorage';
+import { wrapLocalStorage } from '$lib/localStorage';
 import { writable } from 'svelte/store';
 
 export interface RecipeBook {
@@ -8,7 +8,7 @@ export interface RecipeBook {
 
 export const recipeBooks = (() => {
   // wire up store to read from localStorage
-  const locallyStored = JSON.parse(localStorage.getItem('recipeBooks') ?? '[]');
+  const locallyStored = JSON.parse(wrapLocalStorage().getItem('recipeBooks') ?? '[]');
   const { subscribe, set, update } = writable<RecipeBook[]>(locallyStored);
 
   return {
@@ -35,4 +35,4 @@ export const recipeBooks = (() => {
 })();
 
 // wire up store to write to localStorage
-recipeBooks.subscribe((val) => localStorage.setItem('recipeBooks', JSON.stringify(val)));
+recipeBooks.subscribe((val) => wrapLocalStorage().setItem('recipeBooks', JSON.stringify(val)));
