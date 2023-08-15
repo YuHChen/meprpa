@@ -25,7 +25,7 @@
 
 <div>
   <h2>Add a recipe book</h2>
-  <form on:submit|preventDefault={addRecipeBook}>
+  <form on:submit|preventDefault={addRecipeBook} aria-label="Form to add a recipe book">
     <label>
       Spreadsheet ID:
       <input name="id" required />

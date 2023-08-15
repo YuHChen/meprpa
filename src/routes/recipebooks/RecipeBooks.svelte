@@ -15,18 +15,21 @@
   <button on:click={recipeBooks.reset} disabled={$recipeBooks.length === 0}>
     Remove All Recipe Books
   </button>
-  <ul>
+  <ul aria-label="List of recipe books">
     {#each $recipeBooks as recipeBook (recipeBook.id)}
-      <li>
+      <li aria-label={recipeBook.name}>
         <div>
           <span>{recipeBook.name}</span>
-          <form action="{base}/recipebook">
+          <form action="{base}/recipebook" aria-label="Form to edit {recipeBook.name}">
             <input type="hidden" name="id" value={recipeBook.id} />
-            <button class="edit" aria-label="Edit recipe book" />
+            <button class="edit" aria-label="Edit {recipeBook.name}" />
           </form>
-          <form on:submit|preventDefault={removeRecipeBook}>
+          <form
+            on:submit|preventDefault={removeRecipeBook}
+            aria-label="Form to remove {recipeBook.name}"
+          >
             <input type="hidden" name="id" value={recipeBook.id} />
-            <button class="remove" aria-label="Remove recipe book" />
+            <button class="remove" aria-label="Remove {recipeBook.name}" />
           </form>
         </div>
       </li>
